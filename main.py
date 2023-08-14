@@ -1,6 +1,6 @@
 from math import floor
-import sys
-import time
+from sys import stdout
+from time import time
 
 
 def update_progress(done: int, total: int, bar_amount: int = 20, animation: int = 1):
@@ -18,7 +18,7 @@ def update_progress(done: int, total: int, bar_amount: int = 20, animation: int 
 
     _string = ""
     if done != total:
-        timer = int((time.time() - int(time.time())) * len(symbols))
+        timer = int((time() - int(time())) * len(symbols))
         if animation == 1:
             for wave in range(3):
                 _string += symbols[(timer + len(symbols) + wave % len(symbols)) % len(symbols)]
@@ -33,5 +33,5 @@ def update_progress(done: int, total: int, bar_amount: int = 20, animation: int 
     _string += "[" + "█" * _value + "-" * (bar_amount - _value) + "] "
     _string += f"{done}/{total} "
     _string += f"[{done / total * 100:.1f}%]"
-    sys.stdout.write(f"\r{_string}")
-    sys.stdout.flush()
+    stdout.write(f"\r{_string}")
+    stdout.flush()
