@@ -3,7 +3,7 @@ from sys import stdout
 from time import time
 
 
-def update_progress(done: int, total: int, bar_amount: int = 20, animation: int = 1):
+def bar(done: int, total: int, bar_amount: int = 20, animation: int = 1):
     # Animations ↓
     wave = ['▁', '▃', '▅', '▇', '█', '▇', '▅', '▃']
     spin = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇']
