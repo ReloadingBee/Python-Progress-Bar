@@ -1,2 +1,4 @@
 # Python-Progress-Bar
-Console progress bar for python
+Console progress bar for Python
+
+`main.py`
