@@ -3,9 +3,8 @@ Console progress bar for Python
 
 # Example usage
 ```Python
-from math import floor
 from sys import stdout
-from time import time, sleep
+from time import time
 
 
 def bar(done: int, total: int, bar_amount: int = 20, animation: int = 1):
@@ -26,14 +25,14 @@ def bar(done: int, total: int, bar_amount: int = 20, animation: int = 1):
     def out(string):
         # Progress bar itself ↓
         string += " "
-        _value = floor(done / total * bar_amount)
+        _value = int(done / total * bar_amount)
         string += "[" + "█" * _value + "-" * (bar_amount - _value) + "] "
         string += f"{done}/{total} "
         string += f"[{done / total * 100:.1f}%]"
         stdout.write(f"\r{string}")
         stdout.flush()
 
-    if done == total:
+    if done >= total:
         out("(!)")
     else:
         _string: str = ""
@@ -44,13 +43,5 @@ def bar(done: int, total: int, bar_amount: int = 20, animation: int = 1):
         else:
             _string += f" {symbols[timer]} "
         out(_string)
-
-
-# make sure the import sleep in line #3
-for i in range(5):
-    print("\n")
-    for j in range(1001):
-        bar(j, 1000, 20, i + 1)
-        sleep(0.002)
 
 ```
