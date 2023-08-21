@@ -1,6 +1,6 @@
 from math import floor
 from sys import stdout
-from time import time, sleep
+from time import time
 
 
 def bar(done: int, total: int, bar_amount: int = 20, animation: int = 1):
