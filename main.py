@@ -1,6 +1,6 @@
 from math import floor
 from sys import stdout
-from time import time, sleep
+from time import time
 
 
 def bar(done: int, total: int, bar_amount: int = 20, animation: int = 1):
@@ -39,11 +39,3 @@ def bar(done: int, total: int, bar_amount: int = 20, animation: int = 1):
         else:
             _string += f" {symbols[timer]} "
         out(_string)
-
-
-# make sure the import sleep in line #3
-for i in range(5):
-    print("\n")
-    for j in range(1001):
-        bar(j, 1000, 20, i + 1)
-        sleep(0.002)
