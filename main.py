@@ -1,4 +1,3 @@
-from math import floor
 from sys import stdout
 from time import time
 
@@ -21,14 +20,14 @@ def bar(done: int, total: int, bar_amount: int = 20, animation: int = 1):
     def out(string):
         # Progress bar itself ↓
         string += " "
-        _value = floor(done / total * bar_amount)
+        _value = int(done / total * bar_amount)
         string += "[" + "█" * _value + "-" * (bar_amount - _value) + "] "
         string += f"{done}/{total} "
         string += f"[{done / total * 100:.1f}%]"
         stdout.write(f"\r{string}")
         stdout.flush()
 
-    if done == total:
+    if done >= total:
         out("(!)")
     else:
         _string: str = ""
