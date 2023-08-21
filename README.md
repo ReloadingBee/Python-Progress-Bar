@@ -33,17 +33,17 @@ def bar(done: int, total: int, bar_amount: int = 20, animation: int = 1):
         stdout.write(f"\r{string}")
         stdout.flush()
 
-    _string: str = ""
     if done == total:
-        out(_string := "(!)")
-        return
-    timer = int((time() - int(time())) * len(symbols))
-    if symbols == wave:
-        for _wave in range(3):
-            _string += symbols[(timer + len(symbols) + _wave % len(symbols)) % len(symbols)]
+        out("(!)")
     else:
-        _string += f" {symbols[timer]} "
-    out(_string)
+        _string: str = ""
+        timer = int((time() - int(time())) * len(symbols))
+        if symbols == wave:
+            for _wave in range(3):
+                _string += symbols[(timer + len(symbols) + _wave % len(symbols)) % len(symbols)]
+        else:
+            _string += f" {symbols[timer]} "
+        out(_string)
 
 
 # make sure the import sleep in line #3
