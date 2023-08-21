@@ -1,6 +1,6 @@
 from math import floor
 from sys import stdout
-from time import time
+from time import time, sleep
 
 
 def bar(done: int, total: int, bar_amount: int = 20, animation: int = 1):
@@ -9,29 +9,33 @@ def bar(done: int, total: int, bar_amount: int = 20, animation: int = 1):
     spin = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇']
     arrows = ['←', '↖', '↑', '↗', '→', '↘', '↓', '↙']
     triangles = ['▲', '▶', '▼', '◀', '▲', '▶', '▼', '◀']
-    line = ['|', '/', '—', '\\', '|', '/', '—', '\\']
-    if animation == 1: symbols = wave.copy()
-    elif animation == 2: symbols = spin.copy()
-    elif animation == 3: symbols = arrows.copy()
-    elif animation == 4: symbols = triangles.copy()
-    else: symbols = line.copy()
+    line = ['/', '—', '\\', '/', '—', '\\']
+    match animation:
+        case 1: symbols = wave.copy()
+        case 2: symbols = spin.copy()
+        case 3: symbols = arrows.copy()
+        case 4: symbols = triangles.copy()
+        case 5: symbols = line.copy()
+        case _: symbols = wave.copy()
 
-    _string = ""
-    if done != total:
-        timer = int((time() - int(time())) * len(symbols))
-        if animation == 1:
-            for wave in range(3):
-                _string += symbols[(timer + len(symbols) + wave % len(symbols)) % len(symbols)]
-        else:
-            _string += f" {symbols[timer]} "
+    def out(string):
+        # Progress bar itself ↓
+        string += " "
+        _value = floor(done / total * bar_amount)
+        string += "[" + "█" * _value + "-" * (bar_amount - _value) + "] "
+        string += f"{done}/{total} "
+        string += f"[{done / total * 100:.1f}%]"
+        stdout.write(f"\r{string}")
+        stdout.flush()
+
+    _string: str = ""
+    if done == total:
+        out(_string := "(!)")
+        return
+    timer = int((time() - int(time())) * len(symbols))
+    if symbols == wave:
+        for _wave in range(3):
+            _string += symbols[(timer + len(symbols) + _wave % len(symbols)) % len(symbols)]
     else:
-        _string += "(!)"
-
-    # Progress bar itself ↓
-    _string += " "
-    _value = floor(done / total * bar_amount)
-    _string += "[" + "█" * _value + "-" * (bar_amount - _value) + "] "
-    _string += f"{done}/{total} "
-    _string += f"[{done / total * 100:.1f}%]"
-    stdout.write(f"\r{_string}")
-    stdout.flush()
+        _string += f" {symbols[timer]} "
+    out(_string)
